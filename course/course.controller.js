@@ -2,7 +2,9 @@ import express from "express";
 import { validateMongoIdFromParams, deleteCourse } from "./course.service.js";
 const router = express.Router();
 
-//add course
+//add course 
+
+
 router.post(
   "/add",
   async (req, res, next) => {
