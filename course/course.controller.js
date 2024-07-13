@@ -35,7 +35,7 @@ router.post(
   }
 );
 
-//delete a course
+//delete a course {course.service.js}
 router.delete("/delete/:id", validateMongoIdFromParams, deleteCourse);
 
 export default router;
