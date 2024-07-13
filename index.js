@@ -1,7 +1,7 @@
 import express from "express";
 import connectDB from "./connect.db.js";
 import courseRoutes from "./course/course.controller.js";
-
+//
 
 const app = express();
 
@@ -12,11 +12,11 @@ app.use(express.json());
 
 connectDB();
 
-
 app.use(courseRoutes);
-app.use("/course",courseRoutes);
+app.use("/course", courseRoutes);
 
 const PORT = 8090;
+
 
 app.listen(PORT, () => {
   console.log(`App is listening to port ${PORT}`);
