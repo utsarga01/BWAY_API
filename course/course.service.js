@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Course from "./course.model.js";
-import Yup from Yup;
+import Yup from "yup";
 
 
 
@@ -34,3 +34,31 @@ export const validateMongoIdFromParams = (req, res, next) => {
       .status(200)
       .send({ message: "Course is deleted successfully..." });
   };
+  export const validateSchema = async (req, res, next) => {
+    const courseValidationSchema = Yup.object({
+      name: Yup.string()
+        .required("Name is required.")
+        .trim()
+        .max(30, "Name must be at most 15 characters."),
+      duration: Yup.string().required().trim().max(10),
+      tutorName: Yup.string().trim().required().max(30),
+      price: Yup.string().required().trim(),
+    });
+
+    try {
+      const validatedData = await courseValidationSchema.validate(req.body);
+      req.body = validatedData;
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
+    }
+
+    next();
+  };
+  export const addCourse = async (req, res) => {
+    //extract new values from req.body
+    const newCourse = req.body;
+
+    //insert into db
+    await Course.create(newCourse);
+    return res.status(201).send({ message: "Course is added successfully..." });
+  }
